@@ -42,7 +42,7 @@ function inputString (message: string): string {
     return mensagemConvertida
 }
 
-function incluirIperfil () {
+function incluirPerfil () {
     console.clear();
     console.log("---- INCLUIR PERFIL ----\n");
     console.log("Insira os dados solicitados para criar um perfil:");
@@ -94,5 +94,5 @@ function incluirPostagem () {
     console.log("[Id, Nome, E-mail]\n");
 }
 
-export {dataAtual, inputNumber, inputString, incluirIperfil, consultarPerfil };
+export {dataAtual, inputNumber, inputString, incluirPerfil as incluirIperfil, consultarPerfil };
 

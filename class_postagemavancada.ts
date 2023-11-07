@@ -25,7 +25,7 @@ class PostagemAvancada extends Postagem{
             return [false, "Essa hashtag já existe !!"];
         } else {
             this._hashtags.push(hashtag);
-            return [true, "Hashtag incluída com sucesso"];
+            return [true, "Hashtag incluída com sucesso !!"];
         }
     }
 

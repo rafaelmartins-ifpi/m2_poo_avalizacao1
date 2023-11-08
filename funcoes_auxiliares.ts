@@ -1,6 +1,6 @@
 import prompt from "prompt-sync";
 import { Perfil } from "./class_perfil";
-import { app } from "./main";
+import { app } from "./app";
 
 let input = prompt();
 
@@ -12,6 +12,19 @@ function dataAtual (): string {
     const time = data.toTimeString();
     
     return `${dia}/${mes}/${ano} às ${time}`;
+}
+
+//recebe uma função e uma mensagem como parâmetro
+//repete a função recebida enquanto o usuário clica "s" 
+function loppFunction (funcao: () => void, mensagem: string ): void{
+    let repetir: string = ""
+
+    do {
+        
+        funcao();
+        repetir = (input("\n" + mensagem + " [S/n] ")).toLowerCase();
+
+    } while (repetir === "s");
 }
 
 function inputNumber (mensagem: string): number {
@@ -42,7 +55,7 @@ function inputString (message: string): string {
     return mensagemConvertida
 }
 
-function incluirPerfil () {
+function incluirPerfil (): void {
     console.clear();
     console.log("---- INCLUIR PERFIL ----\n");
     console.log("Insira os dados solicitados para criar um perfil:");
@@ -58,7 +71,7 @@ function incluirPerfil () {
     input("\n[enter]");
 }
 
-function consultarPerfil () {
+function consultarPerfil (): void {
     console.clear();
     console.log("---- CONSULTAR PERFIL ---\n");
     console.log("Para consultar o perfil desejado, insira opcionalmente os dados solicitados abaixo:");
@@ -87,12 +100,39 @@ function consultarPerfil () {
     
 }
 
-function incluirPostagem () {
+//Executa a tela de opções para escolha do tipo de postagem (normal ou Especial)
+// Chama outra função de acordo com a opção escolhida
+function incluirPostagem (): void {
     console.clear();
-    console.log("---- INCLUIR POSTAGEM ---\n");
-    console.log("Para consultar o perfil desejado, insira opcionalmente os dados solicitados abaixo:");
-    console.log("[Id, Nome, E-mail]\n");
+    console.log("---- INCLUIR POSTAGEM --- \n");
+    console.log("Que tipo de Postagem deseja incluir ? \n");
+    console.log("[1] Postagem Normal \n[2] Postagem Especial\n");
+
+    let opcao: string = input("Opçao: ");
+
+    switch (opcao) {
+        case "1" :
+            console.log("\n incluirPostagemNormal");
+            break;
+        case "2" :
+            console.log("\n Incluir Postagem Especial");
+            break;
+        default :
+            input ("\n Opção inválida ! \n [enter]");
+            break;
+    }
 }
 
-export {dataAtual, inputNumber, inputString, incluirPerfil as incluirIperfil, consultarPerfil };
+function incluirPostagemNormal(): void {
+    console.clear();
+    console.log("---- INCLUIR POSTAGEM NORMAL ---- \n");
+    console.log("Insira os dados solicitados para incluir uma Postagem Normal:");
+    console.log("[Nome, E-mail]\n");
+
+
+
+}
+
+export {dataAtual, inputNumber, inputString, incluirPerfil, consultarPerfil, 
+    loppFunction, incluirPostagem };
 

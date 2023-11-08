@@ -1,6 +1,6 @@
 import { Perfil } from "./class_perfil";
 import { Postagem } from "./class_postagem";
-import { PostagemAvancada } from "./class_postagemavancada";
+import { PostagemAvancada } from "./class_postagemAvancada";
 
 class RepositorioDePostagens {
     private _postagens: Postagem[];

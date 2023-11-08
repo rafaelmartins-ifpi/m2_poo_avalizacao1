@@ -1,8 +1,8 @@
-import { RepositorioDePostagens } from "./class_repositoriodepostagens";
-import { RepositorioDePerfis } from "./class_repositorioperfis";
+import { RepositorioDePostagens } from "./class_repositorioPostagens";
+import { RepositorioDePerfis } from "./class_repositorioPerfis";
 import { Perfil } from "./class_perfil";
 import { Postagem } from "./class_postagem";
-import { PostagemAvancada } from "./class_postagemavancada";
+import { PostagemAvancada } from "./class_postagemAvancada";
 
 class RedeSocial {
     private _repositórioDePostagens: RepositorioDePostagens = new RepositorioDePostagens;

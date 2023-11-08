@@ -1,21 +1,64 @@
-import { RedeSocial } from "./class_redeSocial";
+import prompt from "prompt-sync";
+import { App } from "./class_app";
+import { consultarPerfil, incluirPerfil, incluirPostagem, loppFunction } from "./funcoes_auxiliares";
+
+let input = prompt();
+let app: App = new App();
 
 
-class App {
-    private _redeSocial: RedeSocial = new RedeSocial();
+function main (){
     
-    get redeSocial (): RedeSocial {
-        return this._redeSocial;
-    }
+    let opcao: string = "";
 
-    mostrarMenu (): void {
+    do {
+      
         console.clear();
-        console.log("Ecolha uma Opção:\n");
-        console.log("[1] Incluir Perfil          [2] Consultar Perfil       [3] Incluir Postagem");
-        console.log("[4] Consultar Postagem      [5] Curtir                 [6] Descurtir");
-        console.log("[7] Exibir Postagens        [8] Exibir Postagens       [9] Salvar em Arquivo");
-        console.log("[10] Carregar Arquivo       [0] sair\n");
-    }
+        app.mostrarMenu();
+        opcao = input("Opção: ");
+
+        switch (opcao) {
+            case "1":
+                incluirPerfil();
+                break;
+            case "2":
+                consultarPerfil();
+                break;
+            case "3":
+                loppFunction(incluirPostagem, "Deseja incluir outra Postagem?");
+                break;
+            case "4":
+                //função
+                break;
+            case "5":
+                //função
+                break;
+            case "6":
+                //função
+                break;
+            case "7": 
+                //função
+                break;
+            case "8":
+                //função
+                break;
+            case "9":
+                //função
+                break;
+            case "10":
+                //função
+                break;
+            case "0":
+                break;
+            default:
+                input("\nOpção Inválida !! \n [enter]");
+                break;
+        }
+
+    } while (opcao != "0");
+    input("\nAplicação encerrada !! \n[enter]")
 }
 
-export {App}
+main ();
+
+export {app}
+

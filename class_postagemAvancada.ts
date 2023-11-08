@@ -9,7 +9,7 @@ class PostagemAvancada extends Postagem{
     constructor (id: number, texto: string, perfil: Perfil) {
         super (id, texto, perfil);
         this._hashtags = [];
-        this._visualizacoesRestantes = 10;
+        this._visualizacoesRestantes = 5;
     }
 
     get hashtags (): string[] {

@@ -80,8 +80,9 @@ class RepositorioDePerfis {
         }
     }
 
-    consultar (id: number = 0, nome?: string, email?: string): Perfil[] | null {
-        let perfisEncontrados: Perfil[] | null = [];
+    consultar (id: number = 0, nome?: string, email?: string): Perfil {
+        let perfisEncontrados: Perfil[] = [];
+        let perfilEncontrado !: Perfil;
 
         if (id) {
            
@@ -137,11 +138,15 @@ class RepositorioDePerfis {
             }
         }
 
-        if (perfisEncontrados.length == 0) {
-            perfisEncontrados = null;
+        if (!perfisEncontrados.length) {
+            console.log ("Nenhum Perfil foi encontrado !!");
+        } else if (perfisEncontrados.length == 1) { 
+            perfilEncontrado = perfisEncontrados[0];
+        } else {
+            console.log ("Mais de um perfil foi encontrado !!");
         }
 
-        return perfisEncontrados;
+        return perfilEncontrado;
     }
 
 }

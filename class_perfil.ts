@@ -29,12 +29,8 @@ class Perfil {
     }
     
     vincularPostagem (postagem: Postagem): void {
-        if (postagem.perfil.id == this._id){
-            this._postagens.push (postagem);
-        } else {
-            console.log ("Postagem não pertence a este Perfil !!");
-        }
-    }
+        this._postagens.push (postagem);
+    }    
 }
 
 export {Perfil};

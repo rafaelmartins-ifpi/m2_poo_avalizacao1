@@ -12,7 +12,7 @@ class App {
         console.clear();
         console.log("Ecolha uma Opção:\n");
         console.log("[1] Incluir Perfil          [2] Consultar Perfil       [3] Incluir Postagem");
-        console.log("[4] Consultar Postagem      [5] Curtir                 [6] Descurtir");
+        console.log("[4] Consultar Postagens     [5] Curtir                 [6] Descurtir");
         console.log("[7] Exibir Postagens        [8] Exibir Postagens       [9] Salvar em Arquivo");
         console.log("[10] Carregar Arquivo       [0] sair\n");
     }

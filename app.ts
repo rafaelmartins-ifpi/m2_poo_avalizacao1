@@ -1,6 +1,6 @@
 import prompt from "prompt-sync";
 import { App } from "./class_app";
-import { consultarPerfil, incluirPerfil, incluirPostagem, loppFunction } from "./funcoes_auxiliares";
+import { consultarPerfil, consultarPostagens, incluirPerfil, incluirPostagem, loppFunction } from "./funcoes_auxiliares";
 
 let input = prompt();
 let app: App = new App();
@@ -18,16 +18,16 @@ function main (){
 
         switch (opcao) {
             case "1":
-                incluirPerfil();
+                loppFunction(incluirPerfil, "Deseja incluir outro Perfil ?");
                 break;
             case "2":
                 consultarPerfil();
                 break;
             case "3":
-                loppFunction(incluirPostagem, "Deseja incluir outra Postagem?");
+                loppFunction(incluirPostagem, "Deseja incluir outra Postagem ?");
                 break;
             case "4":
-                //função
+                consultarPostagens();
                 break;
             case "5":
                 //função

@@ -1,6 +1,8 @@
 import prompt from "prompt-sync";
 import { Perfil } from "./class_perfil";
 import { app } from "./app";
+import { Postagem } from "./class_postagem";
+import { PostagemAvancada } from "./class_postagemAvancada";
 
 let input = prompt();
 
@@ -81,19 +83,13 @@ function consultarPerfil (): void {
     let nome: string = input ("Nome: ");
     let email: string = input ("E-mail: ");
 
-    let perfisEncontrados = app.redeSocial.consultarPerfil(id, nome, email);
+    console.log("\nRESULTADO: \n");
+    let perfilEncontrado = app.redeSocial.consultarPerfil(id, nome, email);
 
-    console.log("\nRESULTADO:")
-
-    if(!perfisEncontrados){
-        console.log("\nNenhum perfil encontrado !!");
-    } else {        
-        for (let i = 0; i < perfisEncontrados.length; i++){
-            console.log("\n--------------- xx ---------------\n");
-            console.log(`Id: ${perfisEncontrados[i].id}`);
-            console.log(`Nome: ${perfisEncontrados[i].nome}`);
-            console.log(`E-mail: ${perfisEncontrados[i].email}`);
-        }
+    if(perfilEncontrado){
+        console.log (`Id: ${perfilEncontrado.id} \n`);
+        console.log (`Nome: ${perfilEncontrado.nome} \n`);
+        console.log (`E-mail: ${perfilEncontrado.email} \n`);
     }
 
     input("\n[enter]");
@@ -112,10 +108,10 @@ function incluirPostagem (): void {
 
     switch (opcao) {
         case "1" :
-            console.log("\n incluirPostagemNormal");
+            incluirPostagemNormal();
             break;
         case "2" :
-            console.log("\n Incluir Postagem Especial");
+            incluirPostagemEspecial();
             break;
         default :
             input ("\n Opção inválida ! \n [enter]");
@@ -126,13 +122,120 @@ function incluirPostagem (): void {
 function incluirPostagemNormal(): void {
     console.clear();
     console.log("---- INCLUIR POSTAGEM NORMAL ---- \n");
-    console.log("Insira os dados solicitados para incluir uma Postagem Normal:");
-    console.log("[Nome, E-mail]\n");
+    console.log("Insira o nome do perfil que deseja incluir a Postagem Normal:");
+    let nome: string = inputString("Nome: ");
+    let perfilEncontrado = app.redeSocial.consultarPerfil(0, nome);
+    console.log();
 
+    if (perfilEncontrado) {
+        let texto: string = inputString("Texto da Postagem: ");
+        let id: number = app.redeSocial.repositórioDePostagens.criarId();
+        let postagem: Postagem = new Postagem (id, texto, perfilEncontrado);
+        app.redeSocial.repositórioDePostagens.incluir(postagem);
+    } else {
+        console.log ("\nVocê pode fazer uma consulta no Menu Principal, Opção [2]");
+        console.log("Ou verificar no Relatório de Perfis, Opção [8]");
+    }
+}
 
+function incluirPostagemEspecial (): void {
+    console.clear();
+    console.log("---- INCLUIR POSTAGEM ESPECIAL ---- \n");
+    console.log("ATENÇÃO: Nas Postagens Especiais é possível incluir #HashTags,");
+    console.log("         Porém, são limitadas a 05 (cinco) visualizações\n");
+    console.log("Insira o nome do perfil que deseja incluir a Postagem Especial:");
+    let nome: string = inputString("Nome: ");
+    let perfilEncontrado = app.redeSocial.consultarPerfil(0, nome);
+    console.log();
+
+    if (perfilEncontrado) {
+        let texto: string = inputString("Texto da Postagem: ");
+        let id: number = app.redeSocial.repositórioDePostagens.criarId();
+        let postagem: Postagem = new PostagemAvancada (id, texto, perfilEncontrado);
+        
+        console.log("Agora você pode incluir quantas #Hashtags quiser:");
+        let hashtag: string = "";
+        let repetir: string = "";
+        
+        do {
+            hashtag = inputString("\n#Hashtag: ");
+            (<PostagemAvancada>postagem).adicionarHashtag(hashtag);
+            repetir = (input("Inclir outra? [S/n] ")).toLowerCase();
+        } while (repetir === "s");
+       
+        app.redeSocial.repositórioDePostagens.incluir(postagem);
+
+    } else {
+        console.log ("\nVocê pode fazer uma consulta no Menu Principal, Opção [2]");
+        console.log("Ou verificar no Relatório de Perfis, Opção [8]");
+    }
+}
+
+function consultarPostagens (): void {
+    console.clear();
+    console.log("---- CONSULTAR POSTAGENS ----\n");
+    console.log("Para consultar o perfil desejado, insira opcionalmente os dados solicitados abaixo:");
+    console.log("[Id, Texto, #HashTag, Perfil]\n");
+
+    let id: number = Number(input ("Id: "));
+    let texto: string = input ("Texto da Postagem: ");
+    let hashtag: string = input ("#HashTag: ");
+    let nome: string = input("Nome do Perfil: ");
+    let perfil = app.redeSocial.consultarPerfil(0, nome);
+
+    console.log("\nRESULTADO: ");
+    let postagensEncontradas = app.redeSocial.consultarPostagens(id, texto, hashtag, perfil);
+
+    if (postagensEncontradas) {
+        for (let i = 0; i < postagensEncontradas.length; i++){
+            console.log("\n--------------- xx ---------------\n");
+            console.log(`🗨️ id. ${postagensEncontradas[i].id}\n`);
+            
+            if (postagensEncontradas[i].ehPopular()){
+                console.log(`🥇🥈🥉\n`);
+            }
+            
+            if (postagensEncontradas[i] instanceof PostagemAvancada){
+                console.log(`${postagensEncontradas[i].texto} \n`);
+                console.log(`👍 ${postagensEncontradas[i].curtidas}   `+
+                            `👎 ${postagensEncontradas[i].descurtidas}   `+
+                            `👀 ${5 - (<PostagemAvancada>postagensEncontradas[i]).visualizacoesRestantes}/5 \n`);
+                console.log(`${(<PostagemAvancada>postagensEncontradas[i]).hashtags}\n`);
+
+            }else {
+                console.log(`${postagensEncontradas[i].texto} \n`);
+                console.log(`👍 ${postagensEncontradas[i].curtidas}   `+
+                            `👎 ${postagensEncontradas[i].descurtidas}\n`);
+            }
+            
+            console.log(`Postado por ${postagensEncontradas[i].perfil.nome}, em ${postagensEncontradas[i].data} \n`);
+        }
+    }
 
 }
 
+function curtir (): void {
+    console.clear();
+    console.log("---- CURTIR POSTAGEM ---- \n");
+    console.log("Insira o ID da postagem que deseja curtir.\n");
+
+    let id: number = inputNumber("Id.: ");
+
+    let postagens: Postagem [] = app.redeSocial.consultarPostagens(id);
+
+    if(postagens) {
+        console.log(`\nTexto da Postagem: ${postagens[0].texto}`);
+        let confirmacao: string = (input("Deseja curti ? [S/n] ")).toLowerCase();
+        
+        if (confirmacao == "s") {
+            app.redeSocial.curtir(postagens[0].id);
+        } 
+    }
+
+    input("\n[enter] ");
+}
+
+
 export {dataAtual, inputNumber, inputString, incluirPerfil, consultarPerfil, 
-    loppFunction, incluirPostagem };
+    loppFunction, incluirPostagem, consultarPostagens };
 

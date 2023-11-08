@@ -20,19 +20,19 @@ class RedeSocial {
         this._repositorioDePerfis.incluir(perfil);
     } 
 
-    consultarPerfil (id: number = 0, nome?: string, email?: string): Perfil[] | null {
-        let perfisEncontrados: Perfil[] | null;
-        perfisEncontrados = (this._repositorioDePerfis.consultar(id, nome, email));
+    consultarPerfil (id: number = 0, nome?: string, email?: string): Perfil {
+        let perfilEncontrado !: Perfil;
+        perfilEncontrado = (this._repositorioDePerfis.consultar(id, nome, email));
 
-        return perfisEncontrados;
+        return perfilEncontrado;
     }
 
     incluirPostagem (postagem: Postagem): void {
         this._repositórioDePostagens.incluir(postagem);
     }
 
-    consultarPostagens (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] | null {
-        let postagensEncontradas: Postagem[] | null;
+    consultarPostagens (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] {
+        let postagensEncontradas !: Postagem[];
         postagensEncontradas = this._repositórioDePostagens.consultar(id, texto, hashtag, perfil);
         return postagensEncontradas;
     }

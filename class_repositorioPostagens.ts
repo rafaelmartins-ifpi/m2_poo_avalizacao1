@@ -76,8 +76,8 @@ class RepositorioDePostagens {
         return postagensEncontraga;
     }
 
-    consultar (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] | null {
-        let postagensEnconstradas: Postagem[] | null = [];
+    consultar (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] {
+        let postagensEnconstradas !: Postagem[];
 
         if (id) {
             if (this.consultarPorId(id)){
@@ -149,6 +149,10 @@ class RepositorioDePostagens {
                     }
                 }
             }
+        }
+
+        if (!postagensEnconstradas) {
+            console.log("Nenhuma Postagem foi encontrada !!");
         }
 
         return postagensEnconstradas;

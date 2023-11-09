@@ -143,7 +143,7 @@ function incluirPostagemEspecial (): void {
     console.log("---- INCLUIR POSTAGEM ESPECIAL ---- \n");
     console.log("ATENÇÃO: Nas Postagens Especiais é possível incluir #HashTags,");
     console.log("         Porém, são limitadas a 05 (cinco) visualizações\n");
-    console.log("Insira o nome do perfil que deseja incluir a Postagem Especial:");
+    console.log("Insira o nome do perfil que deseja incluir a Postagem Especial:\n");
     let nome: string = inputString("Nome: ");
     let perfilEncontrado = app.redeSocial.consultarPerfil(0, nome);
     console.log();
@@ -153,15 +153,17 @@ function incluirPostagemEspecial (): void {
         let id: number = app.redeSocial.repositórioDePostagens.criarId();
         let postagem: Postagem = new PostagemAvancada (id, texto, perfilEncontrado);
         
-        console.log("Agora você pode incluir quantas #Hashtags quiser:");
+        console.log("\nAgora você pode incluir quantas #Hashtags quiser:");
         let hashtag: string = "";
         let repetir: string = "";
         
         do {
-            hashtag = inputString("\n#Hashtag: ");
+            console.log();
+            hashtag = inputString("#Hashtag: ");
             (<PostagemAvancada>postagem).adicionarHashtag(hashtag);
-            repetir = (input("Inclir outra? [S/n] ")).toLowerCase();
-        } while (repetir === "s");
+            console.log();
+            repetir = input("Inclir outra? [S/n] ");
+        } while (repetir.toLowerCase() === "s");
        
         app.redeSocial.repositórioDePostagens.incluir(postagem);
 
@@ -237,5 +239,5 @@ function curtir (): void {
 
 
 export {dataAtual, inputNumber, inputString, incluirPerfil, consultarPerfil, 
-    loppFunction, incluirPostagem, consultarPostagens };
+    loppFunction, incluirPostagem, consultarPostagens, curtir };
 

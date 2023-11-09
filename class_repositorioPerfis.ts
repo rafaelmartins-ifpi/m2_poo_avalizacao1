@@ -143,7 +143,8 @@ class RepositorioDePerfis {
         } else if (perfisEncontrados.length == 1) { 
             perfilEncontrado = perfisEncontrados[0];
         } else {
-            console.log ("Mais de um perfil foi encontrado !!");
+            console.log ("Os dados inseridos correspondem a mais de um perfil");
+            console.log("caso deseje, altere os dados e refaça a pesquisa !!");
         }
 
         return perfilEncontrado;

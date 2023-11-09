@@ -1,6 +1,6 @@
 import prompt from "prompt-sync";
 import { App } from "./class_app";
-import { consultarPerfil, consultarPostagens, incluirPerfil, incluirPostagem, loppFunction } from "./funcoes_auxiliares";
+import { consultarPerfil, consultarPostagens, incluirPerfil, incluirPostagem, loppFunction, curtir } from "./funcoes_auxiliares";
 
 let input = prompt();
 let app: App = new App();
@@ -30,7 +30,7 @@ function main (){
                 consultarPostagens();
                 break;
             case "5":
-                //função
+                curtir();
                 break;
             case "6":
                 //função

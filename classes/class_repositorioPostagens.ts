@@ -49,38 +49,38 @@ class RepositorioDePostagens {
         return postagemEncontraga;
     }
 
-    consultarPorPerfil (perfil: Perfil): Postagem {
-        let postagemEncontraga!: Postagem;
+    consultarPorPerfil (perfil: Perfil): Postagem[] {
+        let postagensEncontragas: Postagem[] = [];
 
         for (let i = 0; i < this._postagens.length; i++){
             if (this._postagens[i].perfil == perfil) {
-                postagemEncontraga = this._postagens[i];
-                break;
+                postagensEncontragas.push(this._postagens[i]);
             }
         }
 
-        return postagemEncontraga;
+        return postagensEncontragas;
     }
 
     consultarPorHashtag (hashtag: string): PostagemAvancada[] {
-        let postagensEncontraga!: PostagemAvancada[];
+        let postagensEncontradas: PostagemAvancada[] = [];
 
         for (let i = 0; i < this._postagens.length; i++){
             if (this._postagens[i] instanceof PostagemAvancada){
                 if ((<PostagemAvancada>this._postagens[i]).existeHashtag(hashtag)){
-                    postagensEncontraga.push(<PostagemAvancada>this._postagens[i]);
+                    postagensEncontradas.push(<PostagemAvancada>this._postagens[i]);
                 }
             }
         }
 
-        return postagensEncontraga;
+        return postagensEncontradas;
     }
 
     consultar (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] {
-        let postagensEnconstradas !: Postagem[];
+        let postagensEnconstradas: Postagem[] = [];
 
         if (id) {
-            if (this.consultarPorId(id)){
+            let encontrada = this.consultarPorId(id);
+            if (encontrada){
                 let jaInserido: boolean = false;
 
                 for (let i = 0; i < postagensEnconstradas.length; i++){
@@ -91,53 +91,58 @@ class RepositorioDePostagens {
                 }
 
                 if (jaInserido == false) {
-                    postagensEnconstradas.push(this.consultarPorId(id));
+                    postagensEnconstradas.push(encontrada);
                 }
             }
         }
 
         if (texto) {
-            if (this.consultarPorTexto(texto)){
+            let encontrada = this.consultarPorTexto(texto);
+            if (encontrada){
                 let jaInserido: boolean = false;
 
                 for (let i = 0; i < postagensEnconstradas.length; i++){
-                    if (postagensEnconstradas[i].texto == texto){
+                    if (postagensEnconstradas[i].id == encontrada.id){
                         jaInserido = true;
                         break;
                     }
                 }
 
                 if (jaInserido == false) {
-                    postagensEnconstradas.push(this.consultarPorTexto(texto));
+                    postagensEnconstradas.push(encontrada);
                 }
             }
         }
 
         if (perfil) {
-            if (this.consultarPorPerfil(perfil)){
+            let encontradas = this.consultarPorPerfil(perfil);
+            if (encontradas.length != 0){
                 let jaInserido: boolean = false;
 
-                for (let i = 0; i < postagensEnconstradas.length; i++){
-                    if (postagensEnconstradas[i].perfil == perfil){
-                        jaInserido = true;
-                        break;
+                for (let i = 0; i < encontradas.length; i++){
+                    for (let j = 0; j < postagensEnconstradas.length; j++){
+                        if (encontradas[i].id == postagensEnconstradas[j].id){
+                            jaInserido = true;
+                            break
+                        }
                     }
-                }
 
-                if (jaInserido == false) {
-                    postagensEnconstradas.push(this.consultarPorPerfil(perfil));
+                    if (jaInserido == false){
+                        postagensEnconstradas.push(encontradas[i]);
+                    }
+                    jaInserido = false;
                 }
             }
         }
 
         if (hashtag) {
-            if(this.consultarPorHashtag(hashtag)){
-                let jaInserido: boolean = false;
-                let encontradas: Postagem[] = this.consultarPorHashtag(hashtag);
+            let encontradas = this.consultarPorHashtag(hashtag);
 
+            if(encontradas.length != 0){
+                let jaInserido: boolean = false;
                 for (let i = 0; i < encontradas.length; i++){
                     for (let j = 0; j > postagensEnconstradas.length; j++){
-                        if (postagensEnconstradas[j] == encontradas[i]) {
+                        if (encontradas[i].id == postagensEnconstradas[j].id) {
                             jaInserido = true;
                             break;
                         } 
@@ -145,13 +150,13 @@ class RepositorioDePostagens {
 
                     if (jaInserido == false) {
                         postagensEnconstradas.push(encontradas[i]);
-                        jaInserido = false;
                     }
+                    jaInserido = false;
                 }
             }
         }
 
-        if (!postagensEnconstradas) {
+        if (postagensEnconstradas.length == 0) {
             console.log("Nenhuma Postagem foi encontrada !!");
         }
 

@@ -31,8 +31,8 @@ class RedeSocial {
         this._repositórioDePostagens.incluir(postagem);
     }
 
-    consultarPostagens (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] {
-        let postagensEncontradas !: Postagem[];
+    consultarPostagens (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] |null {
+        let postagensEncontradas: Postagem[] | null;
         postagensEncontradas = this._repositórioDePostagens.consultar(id, texto, hashtag, perfil);
         return postagensEncontradas;
     }
@@ -73,7 +73,7 @@ class RedeSocial {
         let postagensEncontradas: PostagemAvancada[] = this._repositórioDePostagens.consultarPorHashtag(hashtag);
         
         for (let i = 0; i < postagensEncontradas.length; i++) {
-            this.decrementarVisualizacoes(postagensEncontradas[i]);
+            postagensEncontradas[i].decrementarVisualizacoes();
         }
 
         return postagensEncontradas;

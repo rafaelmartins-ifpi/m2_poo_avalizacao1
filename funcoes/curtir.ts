@@ -12,7 +12,7 @@ function curtir (): void {
 
     let id: number = inputNumber("Id.: ");
 
-    let postagens: Postagem [] = app.redeSocial.consultarPostagens(id);
+    let postagens: Postagem [] | null = app.redeSocial.consultarPostagens(id);
 
     if(postagens) {
         console.log(`\nTexto da Postagem: ${postagens[0].texto}`);

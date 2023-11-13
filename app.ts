@@ -9,6 +9,8 @@ import { curtir } from "./funcoes/curtir";
 import { descurtir } from "./funcoes/descurtir";
 import { decrementarVisualizacoes } from "./funcoes/decrementarVisualizacoes";
 import { exibirPostagem } from "./funcoes/exibirPostagem";
+import { postagensPopulares } from "./funcoes/postagensPopulares";
+import { hashtagsPopulares } from "./funcoes/hashtagsPopulares";
 
 let input = prompt();
 let app: App = new App();
@@ -50,10 +52,10 @@ function main (){
                 loppFunction(exibirPostagem, "Deseja realizar nova exibição ?");
                 break;
             case "9":
-                //função
+                loppFunction(postagensPopulares, "Deseja exibir novamente ?");
                 break;
             case "10":
-                //função
+                loppFunction(hashtagsPopulares, "Deseja exibir novamente ?");
                 break;
             case "0":
                 break;

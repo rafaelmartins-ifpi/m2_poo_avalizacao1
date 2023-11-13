@@ -7,7 +7,7 @@ import { inputString } from './funcoes_auxiliares';
 
 function incluirPostagemNormal(): void {
     console.clear();
-    console.log("---- INCLUIR POSTAGEM NORMAL ---- \n");
+    console.log("---------------------------------------- INCLUIR POSTAGEM NORMAL ---------------------------------------\n");
     console.log("Insira o nome do perfil que deseja incluir a Postagem Normal:\n");
     let nome: string = inputString("Nome: ");
     let perfilEncontrado = app.redeSocial.consultarPerfil(0, nome);
@@ -19,8 +19,7 @@ function incluirPostagemNormal(): void {
         let postagem: Postagem = new Postagem (id, texto, perfilEncontrado);
         app.redeSocial.repositórioDePostagens.incluir(postagem);
     } else {
-        console.log ("\nVocê pode fazer uma consulta no Menu Principal, Opção [2]");
-        console.log("Ou verificar no Relatório de Perfis, Opção [8]");
+        console.log ("\n🚨 Perfil não localizado !");
     }
 }
 

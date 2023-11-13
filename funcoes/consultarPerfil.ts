@@ -20,10 +20,10 @@ function consultarPerfil (): void {
         console.log (`Id: ${perfilEncontrado.id} \n`);
         console.log (`Nome: ${perfilEncontrado.nome} \n`);
         console.log (`E-mail: ${perfilEncontrado.email} \n`);
-    }
-
-    input("\n[enter]");
-    
+    }else {
+        console.log("🚨 Não foi possível especificar o perfil !!");
+        console.log("🚨 Confira os dados");
+    }    
 }
 
 export {consultarPerfil}

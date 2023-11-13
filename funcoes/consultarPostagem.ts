@@ -7,7 +7,7 @@ let input = prompt();
 
 function consultarPostagens (): void {
     console.clear();
-    console.log("---------------------------------------- CONSULTAR PPOSTAGENS ---------------------------------------\n");
+    console.log("---------------------------------------- CONSULTAR POSTAGENS ---------------------------------------\n");
     console.log("Para consultar o perfil desejado, insira opcionalmente os dados solicitados abaixo:");
     console.log("[Id, Texto, #HashTag, Perfil]\n");
 
@@ -17,7 +17,7 @@ function consultarPostagens (): void {
     let nome: string = input("Nome do Perfil: ");
     let perfil = app.redeSocial.consultarPerfil(0, nome);
 
-    console.log("\nRESULTADO: ");
+    console.log("\nRESULTADO: \n");
     let postagensEncontradas = app.redeSocial.consultarPostagens(id, texto, hashtag, perfil);
 
     if (postagensEncontradas) {

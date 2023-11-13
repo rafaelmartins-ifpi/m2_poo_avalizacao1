@@ -23,7 +23,7 @@ function curtir (): void {
         
         if (confirmacao == "s") {
             app.redeSocial.curtir(postagens[0].id);
-            console.log("\n👍 Postagem curtida !!")
+            console.log("\n✅ Postagem curtida !!")
         } 
     }
 }

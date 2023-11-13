@@ -11,8 +11,10 @@ function exibirPostagensPorHashtag (): void {
     console.log("\nRESULTADO: \n");
     let postagens = app.redeSocial.exibirPostagemPorHashtag(hashtag);
 
-    if (postagens) {
+    if (postagens.length != 0) {
         imprimirPostagens(postagens);
+    } else {
+        console.log("🚨 Não foram encontradas Postagens !!");
     }
 }
 

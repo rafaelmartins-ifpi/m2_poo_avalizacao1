@@ -1,5 +1,6 @@
 import {Postagem} from './class_postagem';
 import {Perfil} from './class_perfil';
+import { app } from '../app';
 
 
 class PostagemAvancada extends Postagem{
@@ -20,12 +21,13 @@ class PostagemAvancada extends Postagem{
         return this._visualizacoesRestantes;
     }
 
-    adicionarHashtag (hashtag: string): [boolean, string] {
+    adicionarHashtag (hashtag: string): void {
         if (this.existeHashtag(hashtag)){
-            return [false, "Essa hashtag já existe !!"];
+            console.log("🚨 Hashtag já incluída !!");
         } else {
             this._hashtags.push(hashtag);
-            return [true, "Hashtag incluída com sucesso !!"];
+            app.redeSocial.repositórioDePostagens.atualizarControleHashtags(hashtag);
+            //console.log ("✅");
         }
     }
 

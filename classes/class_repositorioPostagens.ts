@@ -5,10 +5,16 @@ import { PostagemAvancada } from "./class_postagemAvancada";
 class RepositorioDePostagens {
     private _postagens: Postagem[];
     private _contIdPostagem: number;
+    private _controleDeHashtags: [string, number] [];
 
     constructor () {
         this._postagens = [];
         this._contIdPostagem = 1;
+        this._controleDeHashtags = [];
+    }
+
+    get controleDeHashtags(): [string,number] [] {
+        return this._controleDeHashtags;
     }
 
     get postagens (): Postagem[] {
@@ -68,7 +74,7 @@ class RepositorioDePostagens {
     }
 
     consultarPorHashtag (hashtag: string): PostagemAvancada[] {
-        let postagensEncontradas!: PostagemAvancada[];
+        let postagensEncontradas: PostagemAvancada[] = [];
 
         for (let i = 0; i < this._postagens.length; i++){
             if (this._postagens[i] instanceof PostagemAvancada){
@@ -83,9 +89,9 @@ class RepositorioDePostagens {
         return postagensEncontradas;
     }
 
-    consultar (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] {
-        let postagensEnconstradas!: Postagem[];
-
+    consultar (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] | null {
+        let postagensEnconstradas: Postagem[] | null = [];
+    
         if (id) {
             let encontrada = this.consultarPorId(id);
             if (encontrada){
@@ -164,8 +170,9 @@ class RepositorioDePostagens {
             }
         }
 
-        if (!postagensEnconstradas) {
-            console.log("Nenhuma Postagem foi encontrada !!");
+        if (postagensEnconstradas.length == 0) {
+            console.log("🚨 Nenhuma Postagem foi encontrada !!");
+            postagensEnconstradas = null;
         }
 
         return postagensEnconstradas;
@@ -176,9 +183,19 @@ class RepositorioDePostagens {
         if (!this.consultarPorId(postagem.id)){
             this._postagens.push(postagem);
             postagem.perfil.vincularPostagem(postagem);
-            console.log ("\nPostagem inserida com sucesso !!");
+            console.log ("\n✅ Postagem inserida com sucesso !!");
         } else {
-            console.log (`Postagem com ID ${postagem.id} já existe no cadastro !!`);
+            console.log (`🚨 Postagem com ID ${postagem.id} já existe no cadastro !!`);
+        }
+    }
+
+    atualizarControleHashtags (hashtag: string): void {
+        for (let i = 0; i < this._controleDeHashtags.length; i++) {
+            if (hashtag == this._controleDeHashtags[i][0]) {
+                this._controleDeHashtags[i][1] += 1;
+            } else {
+                this._controleDeHashtags.push([hashtag, 1]);
+            }
         }
     }
 }

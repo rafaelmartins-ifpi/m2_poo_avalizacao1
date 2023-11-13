@@ -64,18 +64,18 @@ class RepositorioDePerfis {
         
         if (!this.consultarPorEmail(perfil.email) && !this.consultarPorId(perfil.id) && !this.consultarPorNome(perfil.nome)){
             this._perfis.push (perfil);
-            console.log ("\nPerfil incluído com sucesso !!");
+            console.log ("\n✅ Perfil incluído com sucesso !!");
         } else {
             if (this.consultarPorEmail(perfil.email)) {
-                console.log (`\nemail ${perfil.email} já existe no cadastro !!`);
+                console.log (`\n🚨 E-mail ${perfil.email} já existe no cadastro !!`);
             }
                 
             if (this.consultarPorId(perfil.id)) {
-                console.log (`\nO ID ${perfil.id} já existe no cadastro !!`);
+                console.log (`\n🚨 ID ${perfil.id} já existe no cadastro !!`);
             }
     
             if (this.consultarPorNome(perfil.nome)) {
-                console.log (`\nUsuário(a) ${perfil.nome} já está cadastrado(a) !!`);
+                console.log (`\n🚨 Usuário(a) ${perfil.nome} já está cadastrado(a) !!`);
             }
         }
     }
@@ -138,13 +138,8 @@ class RepositorioDePerfis {
             }
         }
 
-        if (perfisEncontrados.length == 0) {
-            console.log ("Nenhum Perfil foi encontrado !!");
-        } else if (perfisEncontrados.length == 1) { 
+        if (perfisEncontrados.length == 1) { 
             perfilEncontrado = perfisEncontrados[0];
-        } else {
-            console.log ("Não foi possível especificar !!");
-            console.log("Mais de um perfil foi encontrado com os dados inseridos.");
         }
 
         return perfilEncontrado;

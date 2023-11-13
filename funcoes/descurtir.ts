@@ -7,7 +7,7 @@ let input = prompt();
 
 function descurtir (): void {
     console.clear();
-    console.log("---------------------------------------- DESCURTIT POSTAGEM ---------------------------------------\n");
+    console.log("---------------------------------------- DESCURTIR POSTAGEM ---------------------------------------\n");
     console.log("Insira o ID da postagem que deseja descurtir.\n");
 
     let id: number = inputNumber("Id.: ");
@@ -23,7 +23,7 @@ function descurtir (): void {
         
         if (confirmacao == "s") {
             app.redeSocial.descurtir(postagens[0].id);
-            console.log("\n👍 Postagem descurtida !!")
+            console.log("\n✅ Postagem descurtida !!")
         } 
     }
 }

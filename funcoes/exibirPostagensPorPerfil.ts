@@ -11,8 +11,10 @@ function exibirPostagensPorPerfil (): void {
     console.log("\nRESULTADO: \n");
     let postagens = app.redeSocial.exibirPostagensPorPerfil(id);
 
-    if (postagens) {
+    if (postagens.length != 0) {
         imprimirPostagens(postagens);
+    }else {
+        console.log("🚨 Não foram encontradas Postagens !!");
     }
 }
 

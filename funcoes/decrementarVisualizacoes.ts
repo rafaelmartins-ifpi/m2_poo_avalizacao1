@@ -19,8 +19,8 @@ function decrementarVisualizacoes (): void {
 
     if(postagens) {
         if (postagens.length > 1){
-            console.log("Não foi possível definir a Postagem Especial pretendida.");
-            console.log("Várias postagens foram encontradas com os parâmetros inseridos.");
+            console.log("🚨 Não foi possível definir a Postagem Especial pretendida.");
+            console.log("🚨 Várias postagens foram encontradas com os parâmetros inseridos.");
         }else {
             console.log(`Postagem de ${postagens[0].perfil.nome}`);
             console.log(`Texto: ${postagens[0].texto}`);
@@ -33,12 +33,12 @@ function decrementarVisualizacoes (): void {
         
                 if (confirmacao == "s") {
                     app.redeSocial.decrementarVisualizacoes(postagens[0]);
-                    console.log("\nVisualização decrementada !!");
+                    console.log("\n✅ Visualização decrementada !!");
                 }
 
             } else {
                 console.log();
-                console.log("Não se trata de uma Postagem Especial !!");
+                console.log(" 🚨 Não se trata de uma Postagem Especial !!");
             }
         }
 

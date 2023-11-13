@@ -32,8 +32,8 @@ class RedeSocial {
         this._repositórioDePostagens.incluir(postagem);
     }
 
-    consultarPostagens (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] {
-        let postagensEncontradas = this._repositórioDePostagens.consultar(id, texto, hashtag, perfil);
+    consultarPostagens (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] | null {
+        let postagensEncontradas: Postagem[] | null = this._repositórioDePostagens.consultar(id, texto, hashtag, perfil);
         
         if (postagensEncontradas) {
             for (let i = 0; i< postagensEncontradas.length; i++) {
@@ -66,12 +66,22 @@ class RedeSocial {
 
     exibirPostagensPorPerfil (idPerfil: number): Postagem[] {
         let perfil: Perfil = this.consultarPerfil(idPerfil);
-        let postagensEncontradas = this.consultarPostagens(0, "", "", perfil);
+        let postagensEncontradas: Postagem[] = this._repositórioDePostagens.consultarPorPerfil(perfil);
+
+
+        if (perfil) {
+            for (let i = 0; i < postagensEncontradas.length; i++) {
+                if (postagensEncontradas[i] instanceof PostagemAvancada) {
+                    app.redeSocial.decrementarVisualizacoes(<PostagemAvancada>postagensEncontradas[i]);
+                }
+            }
+        }
+
         return postagensEncontradas
     }
 
     exibirPostagemPorHashtag (hashtag: string): PostagemAvancada[] {
-        let postagensEncontradas = app.redeSocial._repositórioDePostagens.consultarPorHashtag (hashtag);
+        let postagensEncontradas = this._repositórioDePostagens.consultarPorHashtag (hashtag);
         
         if (postagensEncontradas) {
             for (let i = 0; i < postagensEncontradas.length; i++) {
@@ -79,6 +89,35 @@ class RedeSocial {
             }
         }
         return postagensEncontradas;
+    }
+
+    getPostagensPopulares (): Postagem[] {
+        let postagensTotal: Postagem[] = app.redeSocial.repositórioDePostagens.postagens;
+        let postagensPopulares: Postagem[] = [];
+
+        for (let i = 0; i < postagensTotal.length; i++){
+            if (postagensTotal[i].ehPopular()) {
+                if (!(postagensTotal[i] instanceof PostagemAvancada)) {
+                    postagensPopulares.push (postagensTotal[i]);
+                } else if ((<PostagemAvancada>postagensTotal[i]).visualizacoesRestantes > 0) {
+                    app.redeSocial.decrementarVisualizacoes(<PostagemAvancada>postagensTotal[i]);
+                    postagensPopulares.push (postagensTotal[i]);  
+                }
+            }
+        }
+    
+        return postagensPopulares;
+    }
+
+    getHashtagsPopulares (): [string, number][] {
+        let totalHashtags = this._repositórioDePostagens.controleDeHashtags;
+        let hashtagsOrdenadas: [string, number] [] = totalHashtags.sort((a,b) => b[1] - a[1])
+        
+        while (hashtagsOrdenadas.length > 5) {
+            hashtagsOrdenadas.pop();
+        }
+
+        return hashtagsOrdenadas
     }
 
 }

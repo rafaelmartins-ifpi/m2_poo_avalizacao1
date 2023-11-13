@@ -9,13 +9,13 @@ let input = prompt();
 
 function incluirPostagemEspecial (): void {
     console.clear();
-    console.log("---- INCLUIR POSTAGEM ESPECIAL ---- \n");
+    console.log("---------------------------------------- INCLUIR POSTAGEM ESPECIAL ---------------------------------------\n");
     console.log("ATENÇÃO: Nas Postagens Especiais é possível incluir #HashTags,");
     console.log("         Porém, são limitadas a 05 (cinco) visualizações\n");
     console.log("Insira o nome do perfil que deseja incluir a Postagem Especial:\n");
     let nome: string = inputString("Nome: ");
-    let perfilEncontrado = app.redeSocial.consultarPerfil(0, nome);
     console.log();
+    let perfilEncontrado = app.redeSocial.consultarPerfil(0, nome);
 
     if (perfilEncontrado) {
         let texto: string = inputString("Texto da Postagem: ");
@@ -37,8 +37,7 @@ function incluirPostagemEspecial (): void {
         app.redeSocial.repositórioDePostagens.incluir(postagem);
 
     } else {
-        console.log ("\nVocê pode fazer uma consulta no Menu Principal, Opção [2]");
-        console.log("Ou verificar no Relatório de Perfis, Opção [8]");
+        console.log("🚨 Perfil não localizado !");
     }
 }
 

@@ -110,7 +110,7 @@ function imprimirPostagens (postagens: Postagem[]) {
                 console.log();
                 console.log(`👍 ${postagens[i].curtidas}   `+
                             `👎 ${postagens[i].descurtidas}   `+
-                            `👀 ${5 - ((<PostagemAvancada>postagens[i]).visualizacoesRestantes)}/5 \n`);
+                            `👀 ${(<PostagemAvancada>postagens[i]).visualizacoesTotal - (<PostagemAvancada>postagens[i]).visualizacoesRestantes}/${(<PostagemAvancada>postagens[i]).visualizacoesTotal} \n`);
                 console.log(colours.fg.yellow, `${(<PostagemAvancada>postagens[i]).hashtags}\n`,colours.reset);
             }else {
                 console.log();

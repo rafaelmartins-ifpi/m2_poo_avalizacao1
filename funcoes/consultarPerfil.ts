@@ -22,7 +22,7 @@ function consultarPerfil (): void {
         console.log (`E-mail: ${perfilEncontrado.email} \n`);
     }else {
         console.log("🚨 Não foi possível especificar o perfil !!");
-        console.log("🚨 Confira os dados");
+        console.log("🚨 Confira os dados inseridos. (Tente consultar com apenas 1 parâmetro.)");
     }    
 }
 

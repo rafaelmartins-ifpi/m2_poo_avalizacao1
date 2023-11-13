@@ -22,6 +22,8 @@ function consultarPostagens (): void {
 
     if (postagensEncontradas) {
         imprimirPostagens (postagensEncontradas);
+    } else {
+        console.log("🚨 Não foram encontradas Postagens !!");
     }
 
 }

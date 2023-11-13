@@ -8,7 +8,7 @@ let input = prompt();
 function curtir (): void {
     console.clear();
     console.log("---------------------------------------- CURTIR POSTAGEM ---------------------------------------\n");
-    console.log("Insira o ID da postagem que deseja curtir.\n");
+    console.log("Insira o ID da Postagem que deseja curtir.\n");
 
     let id: number = inputNumber("Id.: ");
 
@@ -25,6 +25,8 @@ function curtir (): void {
             app.redeSocial.curtir(postagens[0].id);
             console.log("\n✅ Postagem curtida !!")
         } 
+    } else {
+        console.log("🚨 Postagem não localizada !!");
     }
 }
 

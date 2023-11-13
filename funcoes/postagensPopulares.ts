@@ -12,8 +12,8 @@ function postagensPopulares (): void {
     let postagens = app.redeSocial.getPostagensPopulares();
     console.log("\nRESULTADO:\n");
     
-    if (postagens.length = 0) {
-        console.log("Não existem Postagens Populares.");
+    if (postagens.length == 0) {
+        console.log("🚨 Não existem Postagens Populares.");
     } else {
         imprimirPostagens(postagens);
     }

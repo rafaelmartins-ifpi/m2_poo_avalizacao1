@@ -11,8 +11,8 @@ function hashtagsPopulares (): void {
     let hashtags = app.redeSocial.getHashtagsPopulares();
     console.log("\nRESULTADO:\n");
     
-    if (hashtags.length = 0) {
-        console.log("Ainda não existem Postagens Especiais com Hashtags.");
+    if (hashtags.length == 0) {
+        console.log("🚨 Ainda não existem Postagens Especiais com Hashtags.");
     } else {
         for (let i = 0; i < hashtags.length; i++) {
             console.log(`${hashtags[0]}  -  ${hashtags[1]} inclusões`);

@@ -92,16 +92,15 @@ class RedeSocial {
     }
 
     getPostagensPopulares (): Postagem[] {
-        let postagensTotal: Postagem[] = app.redeSocial.repositórioDePostagens.postagens;
+        let postagensTotal: Postagem[] = this._repositórioDePostagens.postagens;
         let postagensPopulares: Postagem[] = [];
 
         for (let i = 0; i < postagensTotal.length; i++){
             if (postagensTotal[i].ehPopular()) {
-                if (!(postagensTotal[i] instanceof PostagemAvancada)) {
-                    postagensPopulares.push (postagensTotal[i]);
-                } else if ((<PostagemAvancada>postagensTotal[i]).visualizacoesRestantes > 0) {
-                    app.redeSocial.decrementarVisualizacoes(<PostagemAvancada>postagensTotal[i]);
-                    postagensPopulares.push (postagensTotal[i]);  
+                postagensPopulares.push(postagensTotal[i]);
+
+                if (postagensTotal[i] instanceof PostagemAvancada){
+                    app.redeSocial.decrementarVisualizacoes(<PostagemAvancada>postagensTotal[i])
                 }
             }
         }

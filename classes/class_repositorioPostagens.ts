@@ -171,7 +171,6 @@ class RepositorioDePostagens {
         }
 
         if (postagensEnconstradas.length == 0) {
-            console.log("🚨 Nenhuma Postagem foi encontrada !!");
             postagensEnconstradas = null;
         }
 

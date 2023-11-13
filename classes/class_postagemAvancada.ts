@@ -6,13 +6,18 @@ import { app } from '../app';
 class PostagemAvancada extends Postagem{
     private _hashtags: string[];
     private _visualizacoesRestantes: number;
+    private _visualizacoesTotal: number;
 
     constructor (id: number, texto: string, perfil: Perfil) {
         super (id, texto, perfil);
         this._hashtags = [];
-        this._visualizacoesRestantes = 5;
+        this._visualizacoesRestantes = 10;
+        this._visualizacoesTotal = 10;
     }
 
+    get visualizacoesTotal (): number {
+        return this._visualizacoesTotal;
+    }
     get hashtags (): string[] {
         return this._hashtags;
     }

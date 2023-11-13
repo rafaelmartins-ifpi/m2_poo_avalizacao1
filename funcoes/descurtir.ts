@@ -25,6 +25,8 @@ function descurtir (): void {
             app.redeSocial.descurtir(postagens[0].id);
             console.log("\n✅ Postagem descurtida !!")
         } 
+    } else {
+        console.log("🚨 Postagem não localizada !!");
     }
 }
 

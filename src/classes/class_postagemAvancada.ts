@@ -1,6 +1,6 @@
 import {Postagem} from './class_postagem';
 import {Perfil} from './class_perfil';
-import { app } from '../app';
+import { app } from "../app";
 
 
 class PostagemAvancada extends Postagem{

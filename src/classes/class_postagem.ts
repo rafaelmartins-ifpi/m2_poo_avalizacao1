@@ -1,5 +1,5 @@
 import {Perfil} from './class_perfil';
-import { dataAtual } from '../funcoes/funcoes_auxiliares';
+import { dataAtual } from "../funcoes/funcoes_auxiliares";
 
 class Postagem {
     private _id: number;

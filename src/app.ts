@@ -1,5 +1,5 @@
 import prompt from "prompt-sync";
-import { App } from "./classes/class_app";
+import { App } from "../src/classes/class_app";
 import { loppFunction } from "./funcoes/funcoes_auxiliares";
 import { incluirPerfil } from "./funcoes/incluirPerfil";
 import { consultarPerfil } from "./funcoes/consultarPerfil";

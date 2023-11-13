@@ -110,11 +110,18 @@ class RedeSocial {
 
     getHashtagsPopulares (): [string, number][] {
         let totalHashtags = this._repositórioDePostagens.controleDeHashtags;
-        let hashtagsOrdenadas: [string, number] [] = totalHashtags.sort((a,b) => b[1] - a[1])
+        let hashtagsOrdenadas: [string, number] [] = totalHashtags.sort((a,b) => {
+            if (b[1] > a[1]) return 1;
+            if (b[1] > a[1]) return -1;
+            return 0;
+        })
         
-        while (hashtagsOrdenadas.length > 5) {
-            hashtagsOrdenadas.pop();
-        }
+        /*teste SE NÃO DER CERTO, TENTAR DO JEITO ABAIXO
+        data = [(0, 1), (2, 3), (4, -5), (6, -3)]
+        data.sort(key=lambda x: x[1])
+        >>> data
+        [(4, -5), (6, -3), (0, 1), (2, 3)]
+        */
 
         return hashtagsOrdenadas
     }

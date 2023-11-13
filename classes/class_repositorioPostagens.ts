@@ -28,8 +28,10 @@ class RepositorioDePostagens {
 
         for (let i = 0; i < this._postagens.length; i++){
             if (this._postagens[i].id == id) {
-                postagemEncontraga = this._postagens[i];
-                break;
+                if (!(this._postagens[i] instanceof PostagemAvancada) || (<PostagemAvancada>this._postagens[i]).visualizacoesRestantes > 0){
+                    postagemEncontraga = this._postagens[i];
+                    break;
+                }
             }
         }
 
@@ -41,8 +43,10 @@ class RepositorioDePostagens {
 
         for (let i = 0; i < this._postagens.length; i++){
             if (this._postagens[i].texto == texto) {
-                postagemEncontraga = this._postagens[i];
-                break;
+                if (!(this._postagens[i] instanceof PostagemAvancada) || (<PostagemAvancada>this._postagens[i]).visualizacoesRestantes > 0){
+                    postagemEncontraga = this._postagens[i];
+                    break;
+                }
             }
         }
 
@@ -54,7 +58,9 @@ class RepositorioDePostagens {
 
         for (let i = 0; i < this._postagens.length; i++){
             if (this._postagens[i].perfil == perfil) {
-                postagensEncontragas.push(this._postagens[i]);
+                if (!(this._postagens[i] instanceof PostagemAvancada) || (<PostagemAvancada>this._postagens[i]).visualizacoesRestantes > 0) {
+                    postagensEncontragas.push(this._postagens[i]);
+                }
             }
         }
 
@@ -62,12 +68,14 @@ class RepositorioDePostagens {
     }
 
     consultarPorHashtag (hashtag: string): PostagemAvancada[] {
-        let postagensEncontradas: PostagemAvancada[] = [];
+        let postagensEncontradas!: PostagemAvancada[];
 
         for (let i = 0; i < this._postagens.length; i++){
             if (this._postagens[i] instanceof PostagemAvancada){
                 if ((<PostagemAvancada>this._postagens[i]).existeHashtag(hashtag)){
-                    postagensEncontradas.push(<PostagemAvancada>this._postagens[i]);
+                    if ((<PostagemAvancada>this._postagens[i]).visualizacoesRestantes > 0){
+                        postagensEncontradas.push(<PostagemAvancada>this._postagens[i]);
+                    }
                 }
             }
         }
@@ -76,7 +84,7 @@ class RepositorioDePostagens {
     }
 
     consultar (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] {
-        let postagensEnconstradas: Postagem[] = [];
+        let postagensEnconstradas!: Postagem[];
 
         if (id) {
             let encontrada = this.consultarPorId(id);
@@ -156,7 +164,7 @@ class RepositorioDePostagens {
             }
         }
 
-        if (postagensEnconstradas.length == 0) {
+        if (!postagensEnconstradas) {
             console.log("Nenhuma Postagem foi encontrada !!");
         }
 
@@ -168,7 +176,7 @@ class RepositorioDePostagens {
         if (!this.consultarPorId(postagem.id)){
             this._postagens.push(postagem);
             postagem.perfil.vincularPostagem(postagem);
-            console.log ("Postagem inserida com sucesso !!");
+            console.log ("\nPostagem inserida com sucesso !!");
         } else {
             console.log (`Postagem com ID ${postagem.id} já existe no cadastro !!`);
         }

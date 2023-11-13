@@ -1,12 +1,13 @@
 import prompt from 'prompt-sync';
 import { PostagemAvancada } from '../classes/class_postagemAvancada';
+import { imprimirPostagens } from './funcoes_auxiliares';
 import { app } from '../app';
 let input = prompt();
 
 
 function consultarPostagens (): void {
     console.clear();
-    console.log("---- CONSULTAR POSTAGENS ----\n");
+    console.log("---------------------------------------- CONSULTAR PPOSTAGENS ---------------------------------------\n");
     console.log("Para consultar o perfil desejado, insira opcionalmente os dados solicitados abaixo:");
     console.log("[Id, Texto, #HashTag, Perfil]\n");
 
@@ -20,29 +21,7 @@ function consultarPostagens (): void {
     let postagensEncontradas = app.redeSocial.consultarPostagens(id, texto, hashtag, perfil);
 
     if (postagensEncontradas) {
-        for (let i = 0; i < postagensEncontradas.length; i++){
-            console.log("\n--------------- xx ---------------\n");
-            console.log(`🗨️ id. ${postagensEncontradas[i].id}\n`);
-            
-            if (postagensEncontradas[i].ehPopular()){
-                console.log(`🥇🥈🥉\n`);
-            }
-            
-            if (postagensEncontradas[i] instanceof PostagemAvancada){
-                console.log(`${postagensEncontradas[i].texto} \n`);
-                console.log(`👍 ${postagensEncontradas[i].curtidas}   `+
-                            `👎 ${postagensEncontradas[i].descurtidas}   `+
-                            `👀 ${5 - (<PostagemAvancada>postagensEncontradas[i]).visualizacoesRestantes}/5 \n`);
-                console.log(`${(<PostagemAvancada>postagensEncontradas[i]).hashtags}\n`);
-
-            }else {
-                console.log(`${postagensEncontradas[i].texto} \n`);
-                console.log(`👍 ${postagensEncontradas[i].curtidas}   `+
-                            `👎 ${postagensEncontradas[i].descurtidas}\n`);
-            }
-            
-            console.log(`Postado por ${postagensEncontradas[i].perfil.nome}, em ${postagensEncontradas[i].data} \n`);
-        }
+        imprimirPostagens (postagensEncontradas);
     }
 
 }

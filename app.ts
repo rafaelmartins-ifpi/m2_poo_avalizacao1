@@ -6,6 +6,9 @@ import { consultarPerfil } from "./funcoes/consultarPerfil";
 import { incluirPostagem } from "./funcoes/incluirPostagem";
 import { consultarPostagens } from "./funcoes/consultarPostagem";
 import { curtir } from "./funcoes/curtir";
+import { descurtir } from "./funcoes/descurtir";
+import { decrementarVisualizacoes } from "./funcoes/decrementarVisualizacoes";
+import { exibirPostagem } from "./funcoes/exibirPostagem";
 
 let input = prompt();
 let app: App = new App();
@@ -26,7 +29,7 @@ function main (){
                 loppFunction (incluirPerfil, "Deseja incluir outro Perfil ?");
                 break;
             case "2":
-                consultarPerfil();
+                loppFunction(consultarPerfil, "Deseja consultar outro Perfil ?");
                 break;
             case "3":
                 loppFunction (incluirPostagem, "Deseja incluir outra Postagem ?");
@@ -38,13 +41,13 @@ function main (){
                 loppFunction (curtir, "Deseja curtir outra postagem ?");
                 break;
             case "6":
-                //função
+                loppFunction(descurtir, "Deseja descurtir outra mensagem ?");
                 break;
             case "7": 
-                //função
+                loppFunction(decrementarVisualizacoes, "Deseja Decrementar Visualização de outra Postagem Especial ?");
                 break;
             case "8":
-                //função
+                loppFunction(exibirPostagem, "Deseja realizar nova exibição ?");
                 break;
             case "9":
                 //função

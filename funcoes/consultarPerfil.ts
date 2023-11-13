@@ -5,7 +5,7 @@ let input = prompt();
 
 function consultarPerfil (): void {
     console.clear();
-    console.log("---- CONSULTAR PERFIL ---\n");
+    console.log("---------------------------------------- CONSULTAR PERFIL ---------------------------------------\n");
     console.log("Para consultar o perfil desejado, insira opcionalmente os dados solicitados abaixo:");
     console.log("[Id, Nome, E-mail]\n");
 

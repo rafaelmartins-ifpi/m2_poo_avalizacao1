@@ -1,3 +1,5 @@
+import { Postagem } from "../classes/class_postagem";
+import { PostagemAvancada } from "../classes/class_postagemAvancada";
 import prompt from "prompt-sync";
 let input = prompt();
 
@@ -56,6 +58,39 @@ function inputString (message: string): string {
     return mensagemConvertida
 }
 
+// recebe um array de postagens e formata para exibição na tela
+function imprimirPostagens (postagens: Postagem[]) {
+    console.log("---------------------------------------- xx ---------------------------------------");
+        for (let i = 0; i < postagens.length; i++){
+            console.log();
+            console.log(`🗨️ id. ${postagens[i].id}\n`);
+            
+            if (postagens[i].ehPopular()){
+                console.log(`🥇🥈🥉\n`);
+            }
+            
+            if (postagens[i] instanceof PostagemAvancada){
+                console.log();
+                console.log(`${postagens[i].texto}\n`);
+                console.log();
+                console.log(`👍 ${postagens[i].curtidas}   `+
+                            `👎 ${postagens[i].descurtidas}   `+
+                            `👀 ${5 - ((<PostagemAvancada>postagens[i]).visualizacoesRestantes)}/5 \n`);
+                console.log(`${(<PostagemAvancada>postagens[i]).hashtags}\n`);
+            }else {
+                console.log();
+                console.log(`${postagens[i].texto} \n`);
+                console.log();
+                console.log(`👍 ${postagens[i].curtidas}   `+
+                            `👎 ${postagens[i].descurtidas}\n`);
+            }
+            
+            console.log(`Postado por ${postagens[i].perfil.nome}, em ${postagens[i].data} \n`);
+            console.log("---------------------------------------- xx ---------------------------------------");
+        }
+}
 
-export {dataAtual, inputNumber, inputString, loppFunction};
+
+
+export {dataAtual, inputNumber, inputString, loppFunction, imprimirPostagens};
 

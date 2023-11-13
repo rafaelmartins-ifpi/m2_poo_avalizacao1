@@ -9,7 +9,7 @@ let input = prompt();
 
 function incluirPostagem (): void {
     console.clear();
-    console.log("---- INCLUIR POSTAGEM --- \n");
+    console.log("---------------------------------------- CONSULTAR PERFIL ---------------------------------------\n");
     console.log("Que tipo de Postagem deseja incluir ? \n");
     console.log("[1] Postagem Normal \n[2] Postagem Especial\n");
 

@@ -3,6 +3,7 @@ import { RepositorioDePerfis } from "./class_repositorioPerfis";
 import { Perfil } from "./class_perfil";
 import { Postagem } from "./class_postagem";
 import { PostagemAvancada } from "./class_postagemAvancada";
+import { app } from "../app";
 
 class RedeSocial {
     private _repositórioDePostagens: RepositorioDePostagens = new RepositorioDePostagens;
@@ -31,20 +32,32 @@ class RedeSocial {
         this._repositórioDePostagens.incluir(postagem);
     }
 
-    consultarPostagens (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] |null {
-        let postagensEncontradas: Postagem[] | null;
-        postagensEncontradas = this._repositórioDePostagens.consultar(id, texto, hashtag, perfil);
+    consultarPostagens (id: number = 0, texto?: string, hashtag?: string, perfil?: Perfil): Postagem[] {
+        let postagensEncontradas = this._repositórioDePostagens.consultar(id, texto, hashtag, perfil);
+        
+        if (postagensEncontradas) {
+            for (let i = 0; i< postagensEncontradas.length; i++) {
+                if (postagensEncontradas[i] instanceof PostagemAvancada){
+                    app.redeSocial.decrementarVisualizacoes(<PostagemAvancada>postagensEncontradas[i])
+                }
+            }
+        }
+       
         return postagensEncontradas;
     }
 
     curtir (idPostagem: number): void {
-        let postagem: Postagem = this._repositórioDePostagens.consultarPorId(idPostagem);
-        postagem.curtir();
+        let postagem: Postagem[] | null = this._repositórioDePostagens.consultar(idPostagem);
+        if (postagem){
+            postagem[0].curtir();
+        }
     }
 
     descurtir (idPostagem: number): void {
-        let postagem: Postagem = this._repositórioDePostagens.consultarPorId(idPostagem);
-        postagem.descurtir();
+        let postagem: Postagem[] | null = this._repositórioDePostagens.consultar(idPostagem);
+        if (postagem) {
+        postagem[0].descurtir();
+        }
     }
 
     decrementarVisualizacoes (postagem: PostagemAvancada): void {
@@ -52,30 +65,19 @@ class RedeSocial {
     }
 
     exibirPostagensPorPerfil (idPerfil: number): Postagem[] {
-        let postagensEncontradas !: Postagem[];
-        let perfil: Perfil = this._repositorioDePerfis.consultarPorId(idPerfil);
-
-        for (let i = 0; i < perfil.postagens.length; i++){
-            if (perfil.postagens[i] instanceof PostagemAvancada) {
-                if ((<PostagemAvancada>perfil.postagens[i]).visualizacoesRestantes > 0) {
-                    postagensEncontradas.push(perfil.postagens[i]);
-                    this.decrementarVisualizacoes(<PostagemAvancada>perfil.postagens[i]);
-                }
-            }else {
-                postagensEncontradas.push(perfil.postagens[i]);     
-            }
-        }
-
-        return postagensEncontradas;
+        let perfil: Perfil = this.consultarPerfil(idPerfil);
+        let postagensEncontradas = this.consultarPostagens(0, "", "", perfil);
+        return postagensEncontradas
     }
 
     exibirPostagemPorHashtag (hashtag: string): PostagemAvancada[] {
-        let postagensEncontradas: PostagemAvancada[] = this._repositórioDePostagens.consultarPorHashtag(hashtag);
+        let postagensEncontradas = app.redeSocial._repositórioDePostagens.consultarPorHashtag (hashtag);
         
-        for (let i = 0; i < postagensEncontradas.length; i++) {
-            postagensEncontradas[i].decrementarVisualizacoes();
+        if (postagensEncontradas) {
+            for (let i = 0; i < postagensEncontradas.length; i++) {
+                app.redeSocial.decrementarVisualizacoes(postagensEncontradas[i])
+            }
         }
-
         return postagensEncontradas;
     }
 

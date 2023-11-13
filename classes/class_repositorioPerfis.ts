@@ -38,7 +38,7 @@ class RepositorioDePerfis {
         let perfilEncontrado !: Perfil;
         
         for (let i = 0; i < this._perfis.length; i++) {
-            if (this._perfis[i].nome == nome) {
+            if ((this._perfis[i].nome).toLowerCase() == nome.toLowerCase()) {
                 perfilEncontrado = this._perfis[i];
                 break;
             }
@@ -108,7 +108,7 @@ class RepositorioDePerfis {
                 let jaInserido: boolean = false;
                 
                 for (let i = 0; i < perfisEncontrados.length; i++){
-                    if (perfisEncontrados[i].nome == nome){
+                    if ((perfisEncontrados[i].nome).toLowerCase() == nome.toLowerCase()){
                         jaInserido = true;
                         break
                     }
@@ -138,13 +138,13 @@ class RepositorioDePerfis {
             }
         }
 
-        if (!perfisEncontrados.length) {
+        if (perfisEncontrados.length == 0) {
             console.log ("Nenhum Perfil foi encontrado !!");
         } else if (perfisEncontrados.length == 1) { 
             perfilEncontrado = perfisEncontrados[0];
         } else {
-            console.log ("Os dados inseridos correspondem a mais de um perfil");
-            console.log("caso deseje, altere os dados e refaça a pesquisa !!");
+            console.log ("Não foi possível especificar !!");
+            console.log("Mais de um perfil foi encontrado com os dados inseridos.");
         }
 
         return perfilEncontrado;

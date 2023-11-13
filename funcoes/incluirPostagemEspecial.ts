@@ -31,7 +31,7 @@ function incluirPostagemEspecial (): void {
             hashtag = inputString("#Hashtag: ");
             (<PostagemAvancada>postagem).adicionarHashtag(hashtag);
             console.log();
-            repetir = input("Inclir outra? [S/n] ");
+            repetir = input("outra # ? [S/n] ");
         } while (repetir.toLowerCase() === "s");
        
         app.redeSocial.repositórioDePostagens.incluir(postagem);

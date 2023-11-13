@@ -7,7 +7,7 @@ let input = prompt();
 
 function incluirPerfil (): void {
     console.clear();
-    console.log("---- INCLUIR PERFIL ----\n");
+    console.log("---------------------------------------- INCLUIR PERFIL ---------------------------------------\n");
     console.log("Insira os dados solicitados para criar um perfil:");
     console.log("[Nome, E-mail]\n");
 
@@ -18,7 +18,6 @@ function incluirPerfil (): void {
     let perfil: Perfil = new Perfil(id, nome, email);
     app.redeSocial.incluirPerfil(perfil);
     
-    input("\n[enter]");
 }
 
 export {incluirPerfil}
